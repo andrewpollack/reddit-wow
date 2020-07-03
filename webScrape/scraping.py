@@ -10,10 +10,10 @@ import json
 Class describing a reddit post.  Used for debugging and cleaning code.
 """
 class RedditPost:
-	def __init__(self, post_key, sub, title, link, flair,\
+	def __init__(self, post_date, sub, title, link, flair,\
 				       author, comment_count, score, rank,\
 				       post_type, timestamp):
-		self.key = post_key.strip()
+		self.date = post_date.strip()
 		self.sub = sub.strip()
 		self.title = title.strip()
 		self.link = link.strip()
@@ -26,7 +26,8 @@ class RedditPost:
 		self.timestamp = int(timestamp.strip())
 	
 	def __str__(self):
-		return("Post Key: {}\n".format(self.key) +
+		return("Date: {}\n".format(self.date) +
+			   "Rank: {}\n".format(self.rank) +
 			   "Sub: {}\n".format(self.sub) +
 			   "Title: {}\n".format(self.title) +
 			   "Link: {}\n".format(self.link) +
@@ -34,7 +35,6 @@ class RedditPost:
 			   "Author: {}\n".format(self.author) +
 			   "Comment Count: {}\n".format(self.comment_count) +
 			   "Score: {}\n".format(self.score) +
-			   "Rank: {}\n".format(self.rank) +
 			   "Post Type: {}\n".format(self.post_type) +
 			   "Timestamp: {}".format(self.timestamp))		
 
@@ -53,7 +53,7 @@ def getTodaysTop25WoWPosts():
 	flair_regex = re.compile("(linkflair-.*)")
 	post_regex = re.compile('(thing id.*)')
 	title_regex = re.compile('(title may-blank.*)')
-	today_date = date.today().strftime("%d-%m-%Y")
+	today_date = date.today().strftime("%m-%d-%Y")
 
 	todays_top_25_posts = []
 
@@ -85,11 +85,11 @@ def getTodaysTop25WoWPosts():
 			if len(post_flair) == 0:
 				post_flair = ["linkflair-none"]
 			post_flair = post_flair[0][len("linkflair-"):]
-			post_key = str(post_rank) + "-" + today_date
+			post_date = today_date
 			post_sub = "/r/wow"
 
 
-			currPost = RedditPost(post_key, post_sub,\
+			currPost = RedditPost(post_date, post_sub,\
 								  post_title, post_link, post_flair,\
 							      post_author, post_comment_count, post_score,\
 							      post_rank, post_type, post_timestamp)
@@ -106,7 +106,7 @@ then dumps the list onto a json file.
 Input: post_list - A list of list where each sublist is the top 25 posts
 """
 def flushToDisk(post_list):
-	today_date = date.today().strftime("%d-%m-%Y")
+	today_date = date.today().strftime("%m-%d-%Y")
 	file_name = "./data/" + today_date + ".json"
 
 	json_list = []
@@ -114,8 +114,7 @@ def flushToDisk(post_list):
 		for post in curr_list:
 		    json_list.append(post.__dict__)
 
-	c_key = today_date
-	mewDict = {"key": c_key, "posts": json_list}
+	mewDict = {"posts": json_list}
 
 	with open(file_name, 'w', newline='') as fp:
 		json.dump(mewDict, fp, indent=4)
