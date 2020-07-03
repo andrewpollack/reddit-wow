@@ -43,7 +43,6 @@ def getFormattedPost(post):
 	Parses a given post, returning it as a formatted RedditPost object
 	"""
 	flair_regex = re.compile("(linkflair-.*)")
-	post_regex = re.compile('(thing id.*)')
 	title_regex = re.compile('(title may-blank.*)')
 	today_date = date.today().strftime("%m-%d-%Y")
 
@@ -100,13 +99,13 @@ def getTodaysTop25WoWPosts():
 	return todays_top_25_posts
 
 
-"""
-Takes as input a list of each subreddits top 25 posts (list of list),
-then dumps the list onto a json file.
-
-Input: post_list - A list of list where each sublist is the top 25 posts
-"""
 def flushToDisk(post_list):
+	"""
+	Takes as input a list of each subreddits top 25 posts (list of list),
+	then dumps the list onto a json file.
+
+	Input: post_list - A list of list where each sublist contains the top 25 posts
+	"""
 	today_date = date.today().strftime("%m-%d-%Y")
 	file_name = "./data/" + today_date + ".json"
 
@@ -117,9 +116,8 @@ def flushToDisk(post_list):
 
 	mewDict = {"posts": json_list}
 
-	print(mewDict)
-	#with open(file_name, 'w', newline='') as fp:
-	#	json.dump(mewDict, fp, indent=4)
+	with open(file_name, 'w', newline='') as fp:
+		json.dump(mewDict, fp, indent=4)
 
 
 def main():
