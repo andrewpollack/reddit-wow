@@ -14,14 +14,14 @@ class RedditPost:
 				       author, comment_count, score, rank,\
 				       post_type, timestamp):
 		self.date = post_date.strip()
+		self.rank = int(rank.strip())
 		self.sub = sub.strip()
 		self.title = title.strip()
 		self.link = link.strip()
-		self.flair = flair.strip()
 		self.author = author.strip()
+		self.flair = flair.strip()
 		self.comment_count = int(comment_count.strip())
 		self.score = int(score.strip())
-		self.rank = int(rank.strip())
 		self.post_type = post_type.strip()
 		self.timestamp = int(timestamp.strip())
 	
@@ -37,8 +37,6 @@ class RedditPost:
 			   "Score: {}\n".format(self.score) +
 			   "Post Type: {}\n".format(self.post_type) +
 			   "Timestamp: {}".format(self.timestamp))		
-
-
 
 
 """
