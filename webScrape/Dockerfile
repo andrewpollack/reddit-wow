@@ -20,4 +20,4 @@ VOLUME /app/data
 ENTRYPOINT ["python"]
 
 # Argument to python command
-CMD ["pyDev/scraping.py"]
+CMD ["scraping.py"]
