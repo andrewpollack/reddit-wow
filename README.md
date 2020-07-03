@@ -2,6 +2,11 @@
 
 I'm excited to get into orchestrating data pipelines, and part of the journey for me will be implementing one from scratch.  This is the tentative plan for the project.  
 
+Todo:
+- Separate class for reddit post in own util.py, import into main
+- Decompose main method into several methods
+- Get fully zipped into docker container
+
 Note: Credit to this comment for a great structure to follow! https://old.reddit.com/r/dataengineering/comments/g1dody/data_engineering_syllabus/fneyvpx/
 
 1. Write a scraper that pulls the top 25 posts on the /r/wow subreddit each day.
